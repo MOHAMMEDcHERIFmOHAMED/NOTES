@@ -5,82 +5,149 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOTES-PROJECT</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-<style>
-    *{
-        padding: 0;
-        margin: 0;
-    }
-    body{
-        background-color: antiquewhite;
-        height: 100vh;
-    }
-    /*      SIDE SECTION      */
-    .main{
-        display: grid;
-        grid-template-columns: 150px 1fr;
-        height: 100%;
-    }
-    .addnote i{
-        padding: 2.5px;
-        font-size: 30px;
-        font-weight: 400;
-        color: white;
-        background-color: black;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-    .sidebar{
-        padding-top: 100px;
-        border-right: solid 1px black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 50px;
-
-    }
-    .colors{
-        height: 30px;
-        width:  30px;
-        border-radius: 50%;
-        background-color: blue;
-        margin-bottom: 20px;
-        cursor: pointer;
-    }
-    #yellow{
-        background-color: rgba(228, 228, 13, 0.932);
-    }
-    #brown{
-        background-color: #b64848;
-    }
-    #purple{
-        background-color: rgb(150, 50, 238);
-    }
-    #lightblue{
-        background-color: lightblue;
-    }
-    #lightgreen{
-        background-color: lightgreen;
-    }
-    /*      NOTES SECTION      */
-
-.notesside{
-    height: 100%;
-    padding-top: 110px;
-    padding-left: 25px;
-}
-.header{
-    padding:   25px 0;
-}
-.header h1{
-    font-size: 40px;
-    font-weight: 900;
-}
-.notes_container{
-    display: flex;
-    gap: 17px;
-    flex-wrap: wrap;
-}
-.note{
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: antiquewhite;
+            height: 100vh;
+        }
+        /* SIDE SECTION */
+        .main{
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            height: 100%;
+        }
+        .addnote i{
+            padding: 2.5px;
+            font-size: 30px;
+            font-weight: 400;
+            color: white;
+            background-color: black;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .sidebar{
+            padding-top: 100px;
+            border-right: solid 1px black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+        }
+        .colors{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            background-color: blue;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        #yellow{
+            background-color: rgba(228, 228, 13, 0.932);
+        }
+        #brown{
+            background-color: #b64848;
+        }
+        #purple{
+            background-color: rgb(150, 50, 238);
+        }
+        #lightblue{
+            background-color: lightblue;
+        }
+        #lightgreen{
+            background-color: lightgreen;
+        }
+        /* NOTES SECTION */
+        .notesside{
+            height: 100%;
+            padding-top: 110px;
+            padding-left: 25px;
+        }
+        .header{
+            padding: 25px 0;
+        }
+        .header h1{
+            font-size: 40px;
+            font-weight: 900;
+        }
+        .notes_container{
+            display: flex;
+            gap: 17px;
+            flex-wrap: wrap;
+        }
+        .note{
+            overflow: hidden;
+            padding: 15px;
+            height: 300px;
+            width: 280px;
+            border-radius: 12px;
+            border: solid 1px;
+            position: relative;
+        }
+        .note:hover .controls i,
+        .note:hover .star {
+            transform: translateX(0);
+        }
+        .notetxt{
+            outline: none;
+            resize: none;
+            height: 90%;
+            width: 95%;
+            border: none;
+            background-color: transparent;
+            font-weight: 600;
+        }
+        .updateon{
+            left: 15px;
+            bottom: 15px;
+            position: absolute;
+        }
+        .controls i{
+            transition: ease-in-out .6s;
+            transform: translateX(500%);
+            margin-bottom: 5px;
+            font-size: 20px;
+            color: #ffff;
+            background-color: black;
+            border-radius: 50%;
+            padding: 5px;
+        }
+        .star{
+            transition: ease-in-out .6s;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            color: #ffff;
+            background-color: rgb(0, 0, 0);
+            border-radius: 50%;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .star i{
+            font-size: 20px;
+        }
+        .controls{
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            right: 15px;
+            bottom: 12%;
+        }
+        .updateon{
+            font-weight: 600;
+            color: rgb(64, 64, 64);
+        }
+        .updateDate i{
+            color: gray;
+            font-size: 17px;
+        }
+        /* Updated .note styling to include hover effects */
+.note {
     overflow: hidden;
     padding: 15px;
     height: 300px;
@@ -88,104 +155,54 @@
     border-radius: 12px;
     border: solid 1px;
     position: relative;
+    transition: transform 0.6s ease-in-out;
 }
-.note:hover .controlls i  {
+
+
+.note .controlls i,
+.note .star {
+    transform: translateX(500%);
+    transition: transform 0.6s ease-in-out;
+}
+
+.note:hover .controlls i,
+.note:hover .star {
     transform: translateX(0);
 }
-.note:hover .star  {
-    transform: translatey(0);
+
+.note .star {
+    transform: translateY(-500%);
+    transition: transform 0.6s ease-in-out;
 }
-.notetxt{
-    font-size: 15px;
-    line-height: 20px;
-    outline: none;
-    resize: none;
-    height: 90%;
-    width: 95%;
-    border: none;
-    background-color: transparent;
-    font-weight: 600;
-    color: black;
+
+.note:hover .star {
+    transform: translateY(0);
 }
-.updateon{
-    left: 15px;
-    bottom: 15px;
-    position: absolute;
-}
-.controlls i{
-    transition: ease-in-out .6s;
-    transform: translateX(500%);
-    /* display: none; */
-    margin-bottom: 5px;
-    font-size: 20px;
-    color: #ffff;
-    background-color: black;
-    border-radius: 50%;
-    padding: 5px;
-}
-.star{
-    transform: translatey(-500%);
-    transition: ease-in-out .6s;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 20px;
-    color: #ffff;
-    background-color: rgb(0, 0, 0);
-    border-radius: 50%;
-    padding: 5px;
-    cursor: pointer;
-    /* display: none; */
-}
-.star i{
-    font-size: 20px;
-}
-.controlls{
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    right: 15px;
-    bottom: 12%;
-}
-.updateon{
-    font-weight: 600;
-    color: rgb(64, 64, 64);
-}
-.updateDate i{
-    color: gray;
-    font-size: 17px;
-}
-</style>
+
+    </style>
 </head>
 <body>
-    
 <div class="main">
-
     <div class="sidebar">
         <div class="addnote">
             <i class='bx bx-plus'></i>
         </div>
         <div class="colorspalet">
-            <div class="colors" id="yellow" onclick="colorChanger(this.id)" ></div>
+            <div class="colors" id="yellow" onclick="colorChanger(this.id)"></div>
             <div class="colors" id="brown" data-id="#b64848" onclick="colorChanger(this.id)"></div>
             <div class="colors" id="purple" onclick="colorChanger(this.id)"></div>
             <div class="colors" id="lightblue" onclick="colorChanger(this.id)"></div>
             <div class="colors" id="lightgreen" onclick="colorChanger(this.id)"></div>
         </div>
     </div>
-    <!--    NOTES SECTION   -->
+    <!-- NOTES SECTION -->
     <div class="notesside">
         <div class="header"><h1>Notes</h1></div>
         <div class="notes_container">
-            <!--     single note     -->
-            
-           
+            <!-- single note -->
         </div>
     </div>
 </div>
-
-
-<script src="notes.js" ></script>
+<script src="notes.js"></script>
 </body>
 </html>
